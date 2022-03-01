@@ -8,11 +8,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.gb.rest.dao.ManufacturerDao;
 import ru.gb.rest.dao.ProductDao;
 import ru.gb.rest.dto.ProductDto;
 import ru.gb.rest.dto.ProductManufacturerDto;
 import ru.gb.rest.dto.mapper.ProductMapper;
+import ru.gb.rest.entity.Orders;
 import ru.gb.rest.entity.Product;
 import ru.gb.rest.entity.enums.Status;
 
@@ -28,6 +31,7 @@ public class ProductService {
     private final ProductDao productDao;
     private final ProductMapper productMapper;
     private final ManufacturerDao manufacturerDao;
+    Orders orders = new Orders();
 
     @Transactional
     public ProductDto save(ProductDto productDto) {
@@ -96,5 +100,20 @@ public class ProductService {
         System.out.println(productDao.count());
         // какая-то логика
         return productDao.count();
+    }
+
+    // DZ_10
+    public List<Product> findAllInOrders(){
+        return  orders.getProducts();
+    }
+
+    public void addProductToOrders(Long id){
+        Product product = productDao.findById(id).orElse(null);
+        orders.addProduct(product);
+    }
+
+    public void deleteProductFromOrders(Long id){
+        Product product = productDao.findById(id).orElse(null);
+        orders.deleteProduct(product);
     }
 }

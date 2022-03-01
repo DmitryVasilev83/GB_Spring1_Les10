@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.rest.dto.ManufacturerDto;
+
 //import ru.gb.rest.service.ManufacturerGateway;
 
 @RequiredArgsConstructor
@@ -13,6 +14,8 @@ import ru.gb.rest.dto.ManufacturerDto;
 public class ManufacturerController implements ManufacturerApi {
 
     private final ManufacturerApi manufacturerApi;
+
+//    private final ManufacturerGateway manufacturerGateway;
 
     @Override
     @GetMapping

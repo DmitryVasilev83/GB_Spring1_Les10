@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -68,5 +69,22 @@ public class ProductController {
         return productService.findAllInfo();
     }
 
+    // DZ 10
+    @GetMapping("/orders/all")
+    public List<Product> getProductListFromOrders(){
+        return productService.findAllInOrders();
+    }
+
+    @GetMapping("/orders/add/{productId}")
+    public List<Product> addProductToOrders(@PathVariable("productId") Long id){
+        productService.addProductToOrders(id);
+        return productService.findAllInOrders();
+    }
+
+    @DeleteMapping("/orders/delete/{productId}")
+    public List<Product> deleteProductFromOrdersById(@PathVariable("productId") Long id){
+        productService.deleteProductFromOrders(id);
+        return productService.findAllInOrders();
+    }
 
 }
